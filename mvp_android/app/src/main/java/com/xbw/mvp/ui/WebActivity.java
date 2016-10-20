@@ -147,7 +147,9 @@ public class WebActivity extends BaseLeftActivity {
             }
         }
     }
-
+    public void setSwipeRefreshEnable(boolean enable) {
+        swipeLayout.setEnabled(enable);
+    }
     public void back(View view) {
         finish();
     }

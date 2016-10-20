@@ -51,4 +51,8 @@
 
     <color name="trans">#00000000</color>
     <color name="blue">#68217A</color>
+    <color name="light_news_item">#FFF0F0F0</color>
+    <color name="light_news_topic">#ff666666</color>
+    <color name="clicked_tv_textcolor">@android:color/darker_gray</color>
+    <color name="light_toolbar">@android:color/holo_blue_dark</color>
 </resources>

@@ -54,10 +54,7 @@ $rs['message']="1";
      <!--dashboard calendar-->
      <link href="../style/css/clndr.css" rel="stylesheet"><!-- CALENDER CSS -->
      <!--[if lt IE 9]>
-<script src="../style/js/html5shiv.js">
-</script>
-<script src="../style/js/respond.min.js">
-</script>
+
 <![endif]-->
      <!-- END STYLESHEET-->
   </head>
@@ -68,6 +65,7 @@ $rs['message']="1";
 
 
 <center>
+<input type="hidden" id="uid" value="<?php echo $uid; ?>">
 <div class="col-md-6">
 <div class="box box-solid">
 <div class="box-header">
@@ -148,21 +146,58 @@ $rs['message']="1";
     </section>
     <!-- END SECTION -->
     <!-- BEGIN JS -->
-    <script src=" ../style/js/jquery-1.8.3.min.js" ></script><!-- BASIC JQUERY 1.8.3 LIB. JS -->
-    <script src=" ../style/js/bootstrap.min.js" ></script><!-- BOOTSTRAP JS -->
-    <script src=" ../style/js/jquery.dcjqaccordion.2.7.js"></script><!-- ACCORDIN JS -->
-    <script src=" ../style/js/jquery.scrollTo.min.js" ></script><!-- SCROLLTO JS -->
-    <script src=" ../style/js/jquery.nicescroll.js" ></script><!-- NICESCROLL JS -->
-    <script src=" ../style/js/respond.min.js" ></script><!-- RESPOND JS -->
-    <script src=" ../style/js/jquery.sparkline.js"></script><!-- SPARKLINE JS -->
-    <script src=" ../style/js/sparkline-chart.js"></script><!-- SPARKLINE CHART JS -->
-    <script src=" ../style/js/common-scripts.js"></script><!-- BASIC COMMON JS -->
-    <script src=" ../style/js/count.js"></script><!-- COUNT JS -->
-    <!--Morris-->
-    <script src=" ../style/assets/morris.js-0.4.3/morris.min.js" ></script><!-- MORRIS JS -->
-    <script src=" ../style/assets/morris.js-0.4.3/raphael-min.js" ></script><!-- MORRIS  JS -->
-    <script src=" ../style/js/chart.js" ></script><!-- CHART JS -->
-    
+<script src="../style/js/jquery-1.8.3.min.js" ></script><!-- BASIC JQUERY 1.8.3 LIB. JS -->
+<script src="../style/js/bootstrap.min.js" ></script><!-- BOOTSTRAP JS -->
+<script src="../style/js/jquery.dcjqaccordion.2.7.js"></script><!-- ACCORDIN JS -->
+<script src="../style/js/jquery.scrollTo.min.js" ></script><!-- SCROLLTO JS -->
+<script src="../style/js/jquery.nicescroll.js" ></script><!-- NICESCROLL JS -->
+<script src="../style/js/respond.min.js" ></script><!-- RESPOND JS -->
+<script src="../style/js/jquery.sparkline.js"></script><!-- SPARKLINE JS -->
+<script src="../style/js/sparkline-chart.js"></script><!-- SPARKLINE CHART JS -->
+<script src="../style/js/common-scripts.js"></script><!-- BASIC COMMON JS -->
+<script src="../style/js/count.js"></script><!-- COUNT JS -->
+<!--Morris-->
+
+
+<script src="../style/js/html5shiv.js"></script>
+<script src="../style/js/respond.min.js"></script>
+
+<script>
+$(document).ready(function(){
+                  $("#checkin").click(function(){
+                                      $.ajax({
+                                             type:"GET",
+                                             url:"_checkin_m.php",
+                                             dataType:"json",
+                                             data:{
+                                             uid: $("#uid").val()
+                                             },
+                                             success:function(data){
+                                             $("#checkin-msg").html(data.msg);
+                                             $("#checkin-btn").hide();
+                                             },
+                                             error:function(jqXHR){
+                                             alert("发生错误："+jqXHR.status);
+                                             // 在控制台输出错误信息
+                                             console.log(removeHTMLTag(jqXHR.responseText));
+                                             }
+                                             })
+                                      })
+                  })
+</script>
+
+<script type="text/javascript">
+// 过滤HTML标签以及&nbsp 来自：http://www.cnblogs.com/liszt/archive/2011/08/16/2140007.html
+function removeHTMLTag(str) {
+    str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+    str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+    str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+    str = str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+    return str;
+}
+</script>
+
+
     <!-- END JS -->
   </body>
 </html>

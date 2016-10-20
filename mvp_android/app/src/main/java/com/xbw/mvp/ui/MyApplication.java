@@ -1,9 +1,15 @@
 package com.xbw.mvp.ui;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.iflytek.cloud.SpeechUtility;
 import com.xbw.mvp.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
 
 /**
  * Created by Weiping on 2016/3/23.
@@ -25,6 +31,21 @@ public class MyApplication extends Application {
         // 以下语句用于设置日志开关（默认开启），设置成false时关闭语音云SDK日志打印
         // Setting.setShowLog(false);
         super.onCreate();
+        initImageLoader(getApplicationContext());
+    }
+    private void initImageLoader(Context context) {
+        File cacheDir = StorageUtils.getCacheDirectory(context);
+/*        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                context).threadPoolSize(3)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .denyCacheImageMultipleSizesInMemory()
+                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .diskCache(new UnlimitedDiskCache(cacheDir)).writeDebugLogs()
+                .build();*/
+        ImageLoaderConfiguration config = ImageLoaderConfiguration.createDefault(context);
+        ImageLoader.getInstance().init(config);
     }
 
 }

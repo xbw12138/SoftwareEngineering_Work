@@ -90,7 +90,7 @@ public class MainActivity extends FragmentActivity implements
     private static final String CONFIG_URL_KEYShengYu = "CONFIG_URL_KEYShengYu";
     private static final String CONFIG_URL_KEYKeYong = "CONFIG_URL_KEYKeYong";
     private static final String CONFIG_URL_KEYLastTime = "CONFIG_URL_KEYLastTime";
-    private ToggleButton switchProxy;
+    public static ToggleButton switchProxy;
     private ToggleButton danmuOpen;
     private Calendar mCalendar;
     private VideoEnabledWebView webView;

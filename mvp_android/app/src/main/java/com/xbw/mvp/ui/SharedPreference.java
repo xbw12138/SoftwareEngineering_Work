@@ -9,6 +9,8 @@ public class SharedPreference {
 	private static final String SHAREDPREFERENCES_NAME = "keep_login";
 	private static final String KEEP_LOGIN_ACTIVITY = "login_activity";
 	private static final String KEEP_LOGIN_ACTIVITY_ID = "login_activity_id";
+	private static final String KEEP_LOGIN_ACTIVITY_SPLASH = "login_activity_splash";
+	private static final String KEEP_LOGIN_ACTIVITY_S = "login_activity_s";
 	private Context context;
 
 	public SharedPreference(Context context) {
@@ -51,6 +53,32 @@ public class SharedPreference {
 				SHAREDPREFERENCES_NAME, Context.MODE_WORLD_READABLE).getString(
 				KEEP_LOGIN_ACTIVITY_ID, "");
 		return mResultStr;
+	}
+	public void KeepSplash(String ID) {
+		SharedPreferences settings = context.getSharedPreferences(
+				SHAREDPREFERENCES_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(KEEP_LOGIN_ACTIVITY_S, "1");
+		editor.putString(KEEP_LOGIN_ACTIVITY_SPLASH, ID);
+		editor.commit();
+	}
+	public String getSplash(){
+		String mResultStr = context.getSharedPreferences(
+				SHAREDPREFERENCES_NAME, Context.MODE_WORLD_READABLE).getString(
+				KEEP_LOGIN_ACTIVITY_SPLASH, "");
+		return mResultStr;
+	}
+	public boolean isSplash(String className) {
+		if (context == null || className == null
+				|| "".equalsIgnoreCase(className))
+			return false;
+		String mResultStr = context.getSharedPreferences(
+				SHAREDPREFERENCES_NAME, Context.MODE_WORLD_READABLE).getString(
+				KEEP_LOGIN_ACTIVITY_S, "");
+		if (mResultStr.equalsIgnoreCase("1"))
+			return true;
+		else
+			return false;
 	}
 
 }

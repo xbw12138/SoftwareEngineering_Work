@@ -116,7 +116,9 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				Intent mIntent = new Intent();
 				mIntent.setClass(LoginActivity.this, WebActivity.class);
-				mIntent.putExtra("url","http://ecfun.cc/mvp/user/resetpwd.php");
+				mIntent.putExtra("title_name",
+						getString(R.string.login_forget_password));
+				mIntent.putExtra("url",getString(R.string.menu_button_url_12));
 				startActivity(mIntent);
 			}
 		});
@@ -125,7 +127,9 @@ public class LoginActivity extends Activity {
 			public void onClick(View arg0) {
 				Intent mIntent = new Intent();
 				mIntent.setClass(LoginActivity.this, WebActivity.class);
-				mIntent.putExtra("url","http://ecfun.cc/mvp/user/register.php");
+				mIntent.putExtra("title_name",
+						getString(R.string.register_sign_up));
+				mIntent.putExtra("url",getString(R.string.menu_button_url_11));
 				startActivity(mIntent);
 			}
 		});

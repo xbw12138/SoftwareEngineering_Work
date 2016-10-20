@@ -26,6 +26,8 @@
             android:layout_centerInParent="true"
             android:text=""
             android:textColor="#fff"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textSize="18sp" />
 
     </RelativeLayout>

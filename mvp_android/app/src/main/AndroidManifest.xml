@@ -76,7 +76,18 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-
+        <activity
+            android:name=".ui.ZhiActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" >
+        </activity>
+        <activity
+            android:name=".ui.LatestContentActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent" >
+        </activity>
         <service
             android:name="com.xbw.mvp.core.LocalVpnService"
             android:permission="android.permission.BIND_VPN_SERVICE">

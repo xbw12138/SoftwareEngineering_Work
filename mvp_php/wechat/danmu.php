@@ -7,7 +7,8 @@ mysql_select_db($mysql_database);
 $uid=$_GET['uid'];
 $page=(int)$_GET['page'];
 $rowz=mysql_fetch_row(mysql_query("select count(*) from danmu"));
-$num=$rowz[0]-$page*10;
+//$num=$rowz[0]-$page*10;
+$num=($page-1)*10;
 $totalpage=$rowz[0]%10;
     if($totalpage!=0){
         $totalpage=$rowz[0]/10+1;
@@ -63,8 +64,8 @@ $i=1;
 
 
                       <?php
-                          if($num>=0){
-                              $sql="select user_phone,danmu_content,time from danmu limit $num , 10";
+                          if($num<=$rowz[0]){
+                              $sql="select user_phone,danmu_content,time from danmu order by id DESC limit $num , 10";
                               if($result=mysql_query($sql)){
                                   while($row=mysql_fetch_array($result)){
                                   ?>

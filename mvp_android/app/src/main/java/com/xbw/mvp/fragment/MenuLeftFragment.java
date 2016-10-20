@@ -1,5 +1,8 @@
 package com.xbw.mvp.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,8 +18,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.xbw.mvp.R;
 import com.xbw.mvp.ui.LoginActivity;
+import com.xbw.mvp.ui.MainActivity;
+import com.xbw.mvp.ui.SaoYiSao;
 import com.xbw.mvp.ui.SharedPreference;
 import com.xbw.mvp.ui.WebActivity;
+import com.xbw.mvp.ui.ZhiActivity;
 
 public class MenuLeftFragment extends Fragment implements OnClickListener {
 	Button btn1;
@@ -130,10 +136,10 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 					getActivity().startActivity(mIntent);
 					break;
 				case R.id.button_imgc:
-					mIntent.setClass(getActivity(), WebActivity.class);
+					mIntent.setClass(getActivity(), ZhiActivity.class);
 					mIntent.putExtra("title_name",
 							getString(R.string.menu_button_3));
-					mIntent.putExtra("url", getString(R.string.menu_button_url_3));
+					//mIntent.putExtra("url", getString(R.string.menu_button_url_3));
 					getActivity().startActivity(mIntent);
 					break;
 				case R.id.button_imgd:
@@ -181,11 +187,38 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 					getActivity().startActivity(mIntent);
 					break;
 				case R.id.btn_settings:
-					mIntent.setClass(getActivity(), WebActivity.class);
-					mIntent.putExtra("title_name",
-							getString(R.string.menu_button_10));
-					mIntent.putExtra("url", getString(R.string.menu_button_url_10));
-					getActivity().startActivity(mIntent);
+					//mIntent.setClass(getActivity(), WebActivity.class);
+					//mIntent.putExtra("title_name",
+					//		getString(R.string.menu_button_10));
+					//mIntent.putExtra("url", getString(R.string.menu_button_url_10));
+					//getActivity().startActivity(mIntent);
+
+
+					if (MainActivity.switchProxy.isChecked()) {
+						return;
+					}
+					new AlertDialog.Builder(getActivity())
+							.setTitle(R.string.config_url)
+							.setItems(new CharSequence[]{
+									getString(R.string.config_url_scan),
+									getString(R.string.config_url_manual)
+							}, new android.content.DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									switch (i) {
+										case 0:
+											Intent intent = new Intent();
+											intent.setClass(getActivity(), SaoYiSao.class);
+											startActivityForResult(intent, 1001);
+											break;
+										case 1:
+											break;
+									}
+								}
+							})
+							.show();
+
+
 					break;
 				case R.id.btn_exit:
 					getActivity().finish();

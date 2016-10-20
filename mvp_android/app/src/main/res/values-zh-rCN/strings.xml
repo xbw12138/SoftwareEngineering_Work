@@ -193,4 +193,28 @@
         <item>关闭</item>
     </string-array>
 
+    <string name="menu_tx_name">未登录</string>
+    <string name="menu_button_1">YouTube</string>
+    <string name="menu_button_2">Google</string>
+    <string name="menu_button_3">知乎日报</string>
+    <string name="menu_button_4">信息更新</string>
+    <string name="menu_button_5">用户中心</string>
+    <string name="menu_button_6">新闻资讯</string>
+    <string name="menu_button_7">弹幕墙</string>
+    <string name="menu_button_8">系统信息</string>
+    <string name="menu_button_9">关于</string>
+    <string name="menu_button_10">设置</string>
+
+    <string name="menu_button_url_1">http://m.youtube.com</string>
+    <string name="menu_button_url_2">http://www.google.com</string>
+    <string name="menu_button_url_3">知乎日报</string>
+    <string name="menu_button_url_4">http://ecfun.cc/mvp/user/update_m.php?uid=</string>
+    <string name="menu_button_url_5">http://ecfun.cc/mvp/user/info.php?uid=</string>
+    <string name="menu_button_url_6">http://ecfun.cc/mvp/wechat/zixun.php?page=1</string>
+    <string name="menu_button_url_7">http://ecfun.cc/mvp/wechat/danmu.php?page=1</string>
+    <string name="menu_button_url_8">http://ecfun.cc/mvp/user/sys_m.php?uid=</string>
+    <string name="menu_button_url_9">http://ecfun.cc/mvp/wechat/tos.php</string>
+    <string name="menu_button_url_10">http://www.baidu.com</string>
+    <string name="menu_button_url_11">http://ecfun.cc/mvp/user/register.php</string>
+    <string name="menu_button_url_12">http://ecfun.cc/mvp/user/resetpwd.php</string>
 </resources>
