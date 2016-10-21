@@ -226,8 +226,9 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 				case R.id.user_logo:
 					mIntent.setClass(getActivity(), WebActivity.class);
 					mIntent.putExtra("title_name",
-							getString(R.string.menu_button_1));
-					mIntent.putExtra("url", getString(R.string.menu_button_url_1));
+							getString(R.string.menu_button_5));
+					mIntent.putExtra("url", getString(R.string.menu_button_url_5)+readUserId());
+					mIntent.putExtra("flag", "1");
 					getActivity().startActivity(mIntent);
 					break;
 			}
