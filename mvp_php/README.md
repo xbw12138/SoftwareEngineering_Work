@@ -1,7 +1,5 @@
-ss-panel
+#基于ss-panel的shadowsocks管理系统
 ========
-
-[![Join the chat at https://gitter.im/orvice/ss-panel](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orvice/ss-panel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### Requirements
 * PHP >= 5.4
@@ -14,7 +12,7 @@ ss-panel
 
 ### Admin
 * The user who uid is 1 is Admin by default.
-* You can Add User ID into table 'ss_user_admin'
+* You can Add User ID into table 'shadow'
 
 ### Send mail using mail-gun
 Run:
