@@ -62,7 +62,7 @@ height: 100%;
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" id="code" class="form-control" placeholder="邀请码 "/>
+                <input type="text" id="code" class="form-control" placeholder="邀请码 " value="cnmddsbQ1NjBkNzhjNWU1OTljMmE5Yz"/>
                 <span class="glyphicon glyphicon-send form-control-feedback"></span>
             </div>
 

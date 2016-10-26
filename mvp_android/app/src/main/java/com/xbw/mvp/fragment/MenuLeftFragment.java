@@ -16,6 +16,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.xbw.mvp.R;
 import com.xbw.mvp.ui.LoginActivity;
 import com.xbw.mvp.ui.MainActivity;
@@ -195,6 +197,7 @@ public class MenuLeftFragment extends Fragment implements OnClickListener {
 
 
 					if (MainActivity.switchProxy.isChecked()) {
+						Toast.makeText(getActivity(),"请关闭服务器进行设置",Toast.LENGTH_LONG).show();
 						return;
 					}
 					new AlertDialog.Builder(getActivity())

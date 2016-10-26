@@ -3,15 +3,18 @@ package com.xbw.mvp.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -38,6 +41,7 @@ public class SplashActivity extends Activity {
     private ImageView iv_start;
     private Start content;
     private SharedPreference sharedPreference;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ public class SplashActivity extends Activity {
         }
         setContentView(R.layout.activity_splash);
         iv_start = (ImageView) findViewById(R.id.iv_start);
+        textView=(TextView)findViewById(R.id.textView10);
+        textView.setText("版本："+getVersionName()+" v");
         sharedPreference=new SharedPreference(this);
         initImage();
     }
@@ -97,10 +103,10 @@ public class SplashActivity extends Activity {
         } else {
             iv_start.setImageResource(R.drawable.start);
         }
-
-        final ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
+        //设置开屏页无动画
+        final ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 1.0f, 1.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                0.0f);
         scaleAnim.setFillAfter(true);
         scaleAnim.setDuration(3000);
         scaleAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -218,6 +224,18 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
 
+    }
+    String getVersionName() {
+        PackageManager packageManager = getPackageManager();
+        if (packageManager == null) {
+            return null;
+        }
+
+        try {
+            return packageManager.getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return null;
+        }
     }
 } 
 

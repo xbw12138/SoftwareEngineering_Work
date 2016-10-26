@@ -17,9 +17,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.ViewDragHelper;
 import android.text.InputType;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.transition.Slide;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -65,6 +68,7 @@ import com.xbw.mvp.mysql.AsyncTask_Insert_Danmu;
 import com.xbw.mvp.mysql.AsyncTask_User_Info;
 import com.xbw.mvp.mysql.AsyncTask_User_Token;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -252,7 +256,6 @@ public class MainActivity extends FragmentActivity implements
                                      showURLDialog();
                                  }
                              }
-
         );
         d.setOnClickListener(new android.view.View.OnClickListener()
 
@@ -260,6 +263,7 @@ public class MainActivity extends FragmentActivity implements
                                  @Override
                                  public void onClick(View v) {
                                      if (switchProxy.isChecked()) {
+                                         Toast.makeText(MainActivity.this,"请关闭服务器进行设置",Toast.LENGTH_LONG).show();
                                          return;
                                      }
                                      FAM.collapse();
@@ -301,6 +305,7 @@ public class MainActivity extends FragmentActivity implements
                 }
             }
         });
+
 
     }
 
@@ -355,8 +360,10 @@ public class MainActivity extends FragmentActivity implements
             }
         });
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerLayout);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
-                Gravity.RIGHT);
+        //设置滑动边距
+        setDrawerLeftEdgeSize(this, mDrawerLayout, 0.8f);
+        //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
+        //        Gravity.RIGHT);
     }
 
     String readProxyUrl() {
@@ -722,6 +729,16 @@ public class MainActivity extends FragmentActivity implements
         webView.setWebViewClient(new InsideWebViewClient());
         url="file:///android_asset/wechat/index.html";
         webView.loadUrl(url);
+        webView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(FAM.getVisibility()==View.VISIBLE){
+                    FAM.setVisibility(View.GONE);
+                }else{
+                    FAM.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private class InsideWebViewClient extends WebViewClient {
@@ -994,5 +1011,20 @@ public class MainActivity extends FragmentActivity implements
             }
 
         });
+    }
+    public static void setDrawerLeftEdgeSize(Activity activity, DrawerLayout drawerLayout, float displayWidthPercentage) {
+        if (activity == null || drawerLayout == null) return;
+        try {
+            Field leftDraggerField = drawerLayout.getClass().getDeclaredField("mLeftDragger");
+            leftDraggerField.setAccessible(true);
+            ViewDragHelper leftDragger = (ViewDragHelper) leftDraggerField.get(drawerLayout);
+            Field edgeSizeField = leftDragger.getClass().getDeclaredField("mEdgeSize");
+            edgeSizeField.setAccessible(true);
+            int edgeSize = edgeSizeField.getInt(leftDragger);
+            DisplayMetrics dm = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+            edgeSizeField.setInt(leftDragger, Math.max(edgeSize, (int) (dm.widthPixels * displayWidthPercentage)));
+        } catch (Exception e) {
+        }
     }
 }
