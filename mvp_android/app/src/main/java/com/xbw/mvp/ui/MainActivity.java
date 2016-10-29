@@ -3,6 +3,7 @@ package com.xbw.mvp.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -83,7 +84,7 @@ import org.json.JSONObject;
 public class MainActivity extends FragmentActivity implements
         View.OnClickListener,
         OnCheckedChangeListener,
-        LocalVpnService.onStatusChangedListener,SearchView.OnQueryTextListener {
+        LocalVpnService.onStatusChangedListener, SearchView.OnQueryTextListener {
 
     // 抽屉
     private DrawerLayout mDrawerLayout;
@@ -97,7 +98,7 @@ public class MainActivity extends FragmentActivity implements
     public static ToggleButton switchProxy;
     private ToggleButton danmuOpen;
     private Calendar mCalendar;
-    private VideoEnabledWebView webView;
+    public static  VideoEnabledWebView webView;
     private VideoEnabledWebChromeClient webChromeClient;
     private SharedPreference sharedpreference;
     public ProgressBar pb;
@@ -117,11 +118,13 @@ public class MainActivity extends FragmentActivity implements
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private Toast mToast;
-    private String url="";
+    private String url = "";
     private FloatingActionsMenu FAM;
     // 用HashMap存储听写结果
     private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
+    public static Dialog dialog;
+    public static AlertDialog.Builder builder;
     //private SearchView sv;
 
     @Override
@@ -133,9 +136,9 @@ public class MainActivity extends FragmentActivity implements
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);// 沉浸式状态栏
         setContentView(R.layout.activity_main);
         switchProxy = (ToggleButton) findViewById(R.id.switch2);
-        danmuOpen=(ToggleButton) findViewById(R.id.switch3);
+        danmuOpen = (ToggleButton) findViewById(R.id.switch3);
         webView = (VideoEnabledWebView) findViewById(R.id.webView);
-        FAM=(FloatingActionsMenu)findViewById(R.id.multiple_actions);
+        FAM = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
         a = (ImageView) findViewById(R.id.action_a);
         b = (ImageView) findViewById(R.id.action_b);
         c = (ImageView) findViewById(R.id.action_c);
@@ -180,8 +183,7 @@ public class MainActivity extends FragmentActivity implements
                 R.color.holo_green_light, R.color.holo_orange_light,
                 R.color.holo_red_light);
 
-        a.setOnClickListener(new android.view.View.OnClickListener()
-                             {
+        a.setOnClickListener(new android.view.View.OnClickListener() {
                                  @Override
                                  public void onClick(View v) {
                                      FAM.collapse();
@@ -263,7 +265,7 @@ public class MainActivity extends FragmentActivity implements
                                  @Override
                                  public void onClick(View v) {
                                      if (switchProxy.isChecked()) {
-                                         Toast.makeText(MainActivity.this,"请关闭服务器进行设置",Toast.LENGTH_LONG).show();
+                                         Toast.makeText(MainActivity.this, "请关闭服务器进行设置", Toast.LENGTH_LONG).show();
                                          return;
                                      }
                                      FAM.collapse();
@@ -297,11 +299,11 @@ public class MainActivity extends FragmentActivity implements
                 if (isChecked) {
                     mDanmakuView.show();
                     mDanmakuView.setVisibility(View.VISIBLE);
-                    Toast.makeText(MainActivity.this,"弹幕开",8000).show();
+                    Toast.makeText(MainActivity.this, "弹幕开", 8000).show();
                 } else {
                     mDanmakuView.hide();
                     mDanmakuView.setVisibility(View.GONE);
-                    Toast.makeText(MainActivity.this,"弹幕关",8000).show();
+                    Toast.makeText(MainActivity.this, "弹幕关", 8000).show();
                 }
             }
         });
@@ -329,6 +331,9 @@ public class MainActivity extends FragmentActivity implements
 
     private void initUI() {
         mDanmakuView = (DanmakuView) findViewById(R.id.danmakuView);//弹幕
+        dialog = new Dialog(this);
+        builder=new AlertDialog.Builder(this);
+
         sendDanmu = (ImageView) findViewById(R.id.imageView5);//发送弹幕
         mIat = SpeechRecognizer.createRecognizer(MainActivity.this, mInitListener);
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
@@ -494,10 +499,10 @@ public class MainActivity extends FragmentActivity implements
         switchProxy.setChecked(isRunning);
         onLogReceived(status);
         if (isRunning) {
-            url="";
+            url = "";
             webView.loadUrl("http://www.google.com");
         } else {
-            url="file:///android_asset/wechat/index.html";
+            url = "file:///android_asset/wechat/index.html";
             webView.loadUrl(url);
         }
         Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
@@ -570,7 +575,7 @@ public class MainActivity extends FragmentActivity implements
         return true;
     }
 
-    public void showURLDialog(){
+    public void showURLDialog() {
         final EditText editText = new EditText(this);
         editText.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
         editText.setHint(getString(R.string.config_url_a));
@@ -586,7 +591,7 @@ public class MainActivity extends FragmentActivity implements
                             return;
                         }
                         String Url = editText.getText().toString().trim();
-                        url="";
+                        url = "";
                         webView.loadUrl(Url);
                         //if (isValidUrl(ProxyUrl)) {
                         //    setProxyUrl(ProxyUrl);
@@ -599,23 +604,24 @@ public class MainActivity extends FragmentActivity implements
                 .setNegativeButton(R.string.btn_cancel, null)
                 .show();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_youtube:
-                url="";
+                url = "";
                 webView.loadUrl("http://m.youtube.com");
                 return true;
             case R.id.menu_item_facebook:
-                url="";
+                url = "";
                 webView.loadUrl("http://www.facebook.com");
                 return true;
             case R.id.menu_item_twitter:
-                url="";
+                url = "";
                 webView.loadUrl("http://mobile.twitter.com");
                 return true;
             case R.id.menu_item_google:
-                url="";
+                url = "";
                 webView.loadUrl("http://www.google.com");
                 return true;
             case R.id.menu_item_zidingyi:
@@ -632,7 +638,7 @@ public class MainActivity extends FragmentActivity implements
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://v.ecfun.cc")));
-                                url="";
+                                url = "";
                                 webView.loadUrl("http://ecfun.cc/mvp");
                             }
                         })
@@ -727,14 +733,14 @@ public class MainActivity extends FragmentActivity implements
         });
         webView.setWebChromeClient(webChromeClient);
         webView.setWebViewClient(new InsideWebViewClient());
-        url="file:///android_asset/wechat/index.html";
+        url = "file:///android_asset/wechat/index.html";
         webView.loadUrl(url);
         webView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(FAM.getVisibility()==View.VISIBLE){
+                if (FAM.getVisibility() == View.VISIBLE) {
                     FAM.setVisibility(View.GONE);
-                }else{
+                } else {
                     FAM.setVisibility(View.VISIBLE);
                 }
             }
@@ -755,7 +761,7 @@ public class MainActivity extends FragmentActivity implements
             // TODO Auto-generated method stub
             super.onReceivedError(view, errorCode, description, failingUrl);
             Toast.makeText(MainActivity.this, "服务未开启，请重试", Toast.LENGTH_SHORT).show();
-            url="file:///android_asset/wechat/index.html";
+            url = "file:///android_asset/wechat/index.html";
             webView.loadUrl(url);
         }
 
@@ -929,16 +935,15 @@ public class MainActivity extends FragmentActivity implements
             if (webView.canGoBack()) {
                 webView.goBack();
                 return true;
-            } else if(LocalVpnService.IsRunning){
+            } else if (LocalVpnService.IsRunning) {
                 moveTaskToBack(false);
                 return true;
-            }else{
+            } else {
                 finish();
             }
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
     // 用户输入字符时激发该方法
@@ -1012,6 +1017,7 @@ public class MainActivity extends FragmentActivity implements
 
         });
     }
+
     public static void setDrawerLeftEdgeSize(Activity activity, DrawerLayout drawerLayout, float displayWidthPercentage) {
         if (activity == null || drawerLayout == null) return;
         try {

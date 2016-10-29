@@ -117,6 +117,16 @@ require_once '_check.php';
                         <i class="fa fa-users"></i> <span>邀请管理</span>
                     </a>
                 </li>
+                <li>
+                    <a href="ad.php">
+                        <i class="fa  fa-picture-o"></i> <span>广告投放</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="update.php">
+                        <i class="fa fa-cloud-download"></i> <span>版本更新</span>
+                    </a>
+                </li>
 
             </ul>
         </section>

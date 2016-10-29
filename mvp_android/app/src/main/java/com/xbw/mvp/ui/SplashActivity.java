@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.iflytek.thirdparty.I;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -125,8 +127,14 @@ public class SplashActivity extends Activity {
                         }
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                            Gson gson = new Gson();
-                            content = gson.fromJson(responseString, Start.class);
+                            //Toast.makeText(SplashActivity.this,responseString,Toast.LENGTH_LONG).show();
+                            try {
+                                Gson gson = new Gson();
+                                content = gson.fromJson(responseString, Start.class);
+                            }catch (JsonSyntaxException e){
+                                startActivity();
+                                return;
+                            }
                             //第一次启动本地无名字存储
                             if(sharedPreference.isSplash(this.getClass().getName())){
                                 //开屏页的名字跟本地名字一样就不下载图片
