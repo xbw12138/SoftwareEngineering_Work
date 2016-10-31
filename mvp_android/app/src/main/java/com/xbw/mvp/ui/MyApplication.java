@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.iflytek.cloud.SpeechUtility;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xbw.mvp.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -32,6 +33,8 @@ public class MyApplication extends Application {
         // Setting.setShowLog(false);
         super.onCreate();
         initImageLoader(getApplicationContext());
+        //bugly接入
+        CrashReport.initCrashReport(getApplicationContext(), "1105598413", false);
     }
     private void initImageLoader(Context context) {
         File cacheDir = StorageUtils.getCacheDirectory(context);
