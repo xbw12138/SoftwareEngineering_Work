@@ -2,15 +2,15 @@
     
     $i=(int)$_GET['id'];
     if ($i==1){
-        header("Location:http://baidu.com");
+        header("Location:https://youtu.be/g-PvXUjD6qg?list=PLlJy-eBtNFt6EuMxFYRiNRS07MCWN5UIA");
     }else if($i==2){
-        header("Location:http://sina.com");
+        header("Location:https://youtu.be/g-PvXUjD6qg?list=PLlJy-eBtNFt6EuMxFYRiNRS07MCWN5UIA");
     }else if($i==3){
-        header("Location:http://youku.com");
+        header("Location:https://youtu.be/g-PvXUjD6qg?list=PLlJy-eBtNFt6EuMxFYRiNRS07MCWN5UIA");
     }else if($i==4){
-        header("Location:http://ecfun.cc");
+        header("Location:https://pan.baidu.com/s/1qYGn8F6");
     }else if($i==5){
-        header("Location:http://xbwcc.com.cn");
+        header("Location:https://pan.baidu.com/s/1qYGn8F6");
     }else if($i=6){
         header("Location:http://v.ecfun.cc");
     }
