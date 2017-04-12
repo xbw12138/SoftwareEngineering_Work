@@ -215,6 +215,10 @@
     <string name="menu_button_url_11">http://ecfun.cc/mvp/user/register.php</string>
     <string name="menu_button_url_12">http://ecfun.cc/mvp/user/resetpwd.php</string>
 
+    <string name="gdtslogan">GDTslogan</string>
+    <string name="click_to_skip">点击跳过</string>
+
+
 
 </resources>
 

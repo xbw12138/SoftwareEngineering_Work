@@ -36,7 +36,7 @@ if(!$code->IsCodeOk()){
     $reg = new \Ss\User\Reg();
     $reg->Reg($name,$email,$passwd,$plan,$transfer,$invite_num,$ref_by);
     //开放注册
-    //$code->Del();
+    $code->Del();
     //邮箱验证
     /*$smtpserver = "smtp.qq.com"; //SMTP服务器
     $smtpserverport = 25; //SMTP服务器端口
